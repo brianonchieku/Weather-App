@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -43,6 +44,8 @@ fun WeatherPage(viewModel: WeatherViewModel){
         mutableStateOf("")
     }
     val weatherResults by viewModel.weatherResults.observeAsState()
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -62,6 +65,7 @@ fun WeatherPage(viewModel: WeatherViewModel){
                 }, modifier = Modifier.weight(1f))
             IconButton(onClick = {
                 viewModel.getData(city)
+                keyboardController?.hide()
             }) {
                 Icon(imageVector = Icons.Default.Search, contentDescription = "search")
 
@@ -128,14 +132,14 @@ fun WeatherDetails(data: WeatherModel){
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     KeyValues("Humidity", data.current.humidity)
-                    KeyValues("Wind Speed", data.current.wind_kph)
+                    KeyValues("Wind Speed", data.current.wind_kph+" km/h")
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     KeyValues("UV", data.current.uv)
-                    KeyValues("Precipitation", data.current.precip_mm)
+                    KeyValues("Precipitation", data.current.precip_mm+" mm")
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
