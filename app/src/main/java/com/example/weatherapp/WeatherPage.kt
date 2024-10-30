@@ -5,7 +5,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -22,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.weatherapp.api.NetworkResponse
+import com.example.weatherapp.api.WeatherModel
 
 @Composable
 fun WeatherPage(viewModel: WeatherViewModel){
@@ -62,9 +66,31 @@ fun WeatherPage(viewModel: WeatherViewModel){
                 CircularProgressIndicator()
             }
             is NetworkResponse.Success -> {
-                Text(text = result.data.toString())
+                WeatherDetails(data = result.data)
             }
             null -> {}
         }
     }
+}
+
+@Composable
+fun WeatherDetails(data: WeatherModel){
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row (
+            modifier =Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.Bottom
+        ){
+            Icon(imageVector = Icons.Default.LocationOn, contentDescription = "location icon",
+                modifier = Modifier.size(40.dp))
+
+        }
+
+    }
+
 }
