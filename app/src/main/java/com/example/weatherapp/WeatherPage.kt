@@ -49,7 +49,7 @@ fun WeatherPage(viewModel: WeatherViewModel){
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp).padding(top = 40.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
